@@ -1,0 +1,10 @@
+<?php
+$dbname = "id8260365_db_desakita";
+$hostname = "localhost";
+$username = "id8260365_root";
+$password = "06041997";
+
+$koneksi = mysqli_connect($hostname, $username, $password, $dbname);
+if (!$koneksi) {
+    die("Connection Failed:" . mysqli_connect_error());
+}
