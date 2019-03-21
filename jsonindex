@@ -10,45 +10,8 @@
 
 <body>
     
-            <h3>Menampilkan Data Mysql</h3>
-            <table border="1" cellpadding="10">
-                    <tr>
-                        <th scope="col">ID PENDUDUK</th>
-                        <th scope="col">NOMOR KK</th>
-                        <th scope="col">NIK KK</th>
-                        <th scope="col">NAMA</th>
-                        <th scope="col">RASKIN</th>
-                        <th scope="col">JAMKESMAS</th>
-                        <th scope="col">PKH</th>
-                        <th scope="col">STATUS EKONOMI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-                    $q = "SELECT * FROM penduduk_miskin";
-                    $hasil = mysqli_query($koneksi, $q);
-
-                    foreach ($hasil as $data) { ?>
-                    <tr>
-                        <th scope="row"><?= $data['id_pen']; ?></th>
-                        <td><?= $data['no_kk']; ?></td>
-                        <td><?= $data['n_kpl_keluarga']; ?></td>
-                        <td><?= $data['nama']; ?></td>
-                        <td><?= $data['raskin']; ?></td>
-                        <td><?= $data['jamkesmas']; ?></td>
-                        <td><?= $data['pkh']; ?></td>
-                        <td><?= $data['s_ekonomi']; ?></td>
-                    </tr>
-                    <?php
-
-                }
-                ?>
-                </tbody>
-            </table>
-        </div>
         <div class="row">
-            <h3>Menampilkan Data Mysql Menggunakan JSON :</h3>
+            <h3>Menampilkan Data Peeduduk Miskin Menggunakan JSON :</h3>
             <?php
 
             $q = "SELECT * FROM penduduk_miskin";
@@ -75,8 +38,62 @@
             }
             ?>
         </div>
+		
+		
+		        <div class="row">
+            <h3>Menampilkan Data Siswa Miskin Menggunakan JSON :</h3>
+            <?php
 
-    </div>
+            $q = "SELECT * FROM siswa_miskin";
+            $hasil = mysqli_query($koneksi, $q);
+
+            if (mysqli_num_rows($hasil) > 0) {
+                $data = array();
+                $data['json'] = array();
+                while ($x = mysqli_fetch_array($hasil)) {
+                    $d['id_siswa'] = $x["id_siswa"];
+                    $d['no_kk'] = $x["no_kk"];
+                    $d['nik'] = $x["nik"];
+                    $d['nama'] = $x["nama"];
+                    $d['pendidikan'] = $x["pendidikan"];
+                    $d['bsm'] = $x["bsm"];
+                    $d['s_ekonomi'] = $x["s_ekonomi"];
+                    array_push($data['json'], $d);
+                }
+                echo json_encode($data);
+            } else {
+                $data["pesan"] = "tidak ada data";
+                echo json_encode($data);
+            }
+            ?>
+        </div>
+		
+		
+		        <div class="row">
+            <h3>Menampilkan Data Ref Agama Menggunakan JSON :</h3>
+            <?php
+
+            $q = "SELECT * FROM ref_agama";
+            $hasil = mysqli_query($koneksi, $q);
+
+            if (mysqli_num_rows($hasil) > 0) {
+                $data = array();
+                $data['json'] = array();
+                while ($x = mysqli_fetch_array($hasil)) {
+                    $d['id_agama'] = $x["id_agama"];
+                    $d['deskripsi'] = $x["deskripsi"];
+                    $d['is_diakui'] = $x["is_diakui"];
+                    array_push($data['json'], $d);
+                }
+                echo json_encode($data);
+            } else {
+                $data["pesan"] = "tidak ada data";
+                echo json_encode($data);
+            }
+            ?>
+        </div>
+
+  
 
 
 
